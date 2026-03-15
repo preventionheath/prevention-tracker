@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prevention.health – Erstgespräch</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a18;min-height:100vh;padding:1.5rem 1rem}
+.wrap{max-width:760px;margin:0 auto}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{font-size:20px;font-weight:500;letter-spacing:0.08em}
+.header p{font-size:13px;color:#888780;margin-top:4px}
+.section{background:white;border:1px solid #e8e7e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.col-label{font-size:11px;font-weight:500;letter-spacing:0.06em;padding:6px 10px;border-radius:6px;margin-bottom:8px;text-align:center}
+.col-vorab{background:#f0f9ff;color:#0c447c}
+.col-praxis{background:#E1F5EE;color:#085041}
+.field{margin-bottom:10px}
+.field label{font-size:12px;color:#888780;display:block;margin-bottom:3px}
+input[type=text],input[type=date],input[type=number],select,textarea{width:100%;font-size:14px;padding:7px 10px;border:1px solid #e8e7e2;border-radius:8px;background:#fafaf8;color:#1a1a18;outline:none;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:#1D9E75;background:white}
+textarea{min-height:52px;resize:none;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}
+.chip{font-size:12px;padding:4px 10px;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fafaf8;color:#5F5E5A;user-select:none}
+.chip.active{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:500}
+.chip.blue.active{background:#E6F1FB;border-color:#185FA5;color:#0C447C}
+.scale-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.scale-label{font-size:12px;color:#1a1a18;width:140px;flex-shrink:0}
+input[type=range]{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e8e7e2;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#1D9E75;cursor:pointer}
+.scale-val{font-size:12px;font-weight:500;width:20px;text-align:right}
+.vitals-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vital-card{background:#f7f7f5;border:1px solid #e8e7e2;border-radius:8px;padding:10px}
+.vital-card label{font-size:11px;color:#888780;display:block;margin-bottom:4px}
+.vital-card input{font-size:16px;font-weight:500;border:none;background:transparent;padding:0;width:100%;outline:none;color:#1a1a18}
+.vital-unit{font-size:11px;color:#888780;margin-top:2px}
+.highlight{background:#fffbeb;border:1px solid #FAC775;border-radius:8px;padding:10px;margin-bottom:10px;font-size:13px;color:#633806}
+.submit-btn{width:100%;padding:14px;font-size:15px;font-weight:500;background:#1D9E75;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:0.5rem}
+.submit-btn:hover{background:#0F6E56}
+.success{display:none;text-align:center;padding:1.5rem;color:#085041;font-size:15px;font-weight:500;background:#E1F5EE;border-radius:12px;margin-top:1rem}
+.error{display:none;text-align:center;padding:1rem;color:#993C1D;font-size:14px;background:#FAECE7;border-radius:12px;margin-top:1rem}
+.divider{height:1px;background:#e8e7e2;margin:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>prevention.health</h1>
+    <p>Erstgespräch — Praxisbogen</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Patient & Termin</div>
+    <div class="two-col">
+      <div class="field"><label>Name der Patient/in</label><input type="text" id="name" placeholder="Vor- und Nachname"></div>
+      <div class="field"><label>Datum</label><input type="date" id="datum"></div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label>Geburtsdatum</label><input type="date" id="geburtsdatum"></div>
+      <div class="field"><label>Terminart</label>
+        <select id="terminart">
+          <option>Erstgespräch 90 Min (180€)</option>
+          <option>Erstgespräch 60 Min (120€)</option>
+          <option>Folgetermin</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Vitalparameter — Messung in der Praxis</div>
+    <div class="vitals-grid">
+      <div class="vital-card">
+        <label>Blutdruck systolisch</label>
+        <input type="number" id="rr-sys" placeholder="120">
+        <div class="vital-unit">mmHg</div>
+      </div>
+      <div class="vital-card">
+        <label>Blutdruck diastolisch</label>
+        <input type="number" id="rr-dia" placeholder="80">
+        <div class="vital-unit">mmHg</div>
+      </div>
+      <div class="vital-card">
+        <label>Puls</label>
+        <input type="number" id="puls" placeholder="72">
+        <div class="vital-unit">Schläge/Min</div>
+      </div>
+      <div class="vital-card">
+        <label>Sauerstoffsättigung (SpO2)</label>
+        <input type="number" id="spo2" placeholder="98">
+        <div class="vital-unit">%</div>
+      </div>
+      <div class="vital-card">
+        <label>Gewicht</label>
+        <input type="number" id="gewicht" placeholder="68">
+        <div class="vital-unit">kg</div>
+      </div>
+      <div class="vital-card">
+        <label>Größe</label>
+        <input type="number" id="groesse" placeholder="168">
+        <div class="vital-unit">cm</div>
+      </div>
+      <div class="vital-card">
+        <label>BMI (wird berechnet)</label>
+        <input type="text" id="bmi" placeholder="–" readonly style="color:#1D9E75;font-weight:500">
+        <div class="vital-unit">kg/m²</div>
+      </div>
+      <div class="vital-card">
+        <label>Blutgruppe</label>
+        <select id="blutgruppe" style="font-size:14px;padding:2px 4px;border:none;background:transparent;font-weight:500">
+          <option value="">Unbekannt</option>
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option><option>0+</option><option>0-</option>
+        </select>
+        <div class="vital-unit">ABO-System</div>
+      </div>
+    </div>
+    <div class="field" style="margin-top:10px"><label>Auffälligkeiten / Notizen Vitalparameter</label><textarea id="vital-notizen" placeholder="z.B. Hypertonie bekannt, Puls erhöht wegen Aufregung..."></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Aktuelle Beschwerden — Vergleich vorab / Praxis</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label col-vorab">Angabe Patient vorab</div>
+        <div class="field"><label>Hauptbeschwerden (vorab)</label><textarea id="beschwerden-vorab" placeholder="Aus dem Online-Anamnesebogen übertragen..."></textarea></div>
+        <div class="field"><label>Seit wann (vorab)</label><input type="text" id="seitwann-vorab" placeholder="z.B. seit 6 Monaten"></div>
+        <div class="field"><label>Therapieziel (vorab)</label><textarea id="ziel-vorab" placeholder="Was der Patient sich wünscht..."></textarea></div>
+      </div>
+      <div>
+        <div class="col-label col-praxis">Ergänzung im Gespräch</div>
+        <div class="field"><label>Vertiefte Beschwerden (Gespräch)</label><textarea id="beschwerden-praxis" placeholder="Was im Gespräch zusätzlich deutlich wird..."></textarea></div>
+        <div class="field"><label>Auslöser / Trigger</label><input type="text" id="ausloser" placeholder="z.B. nach Schwangerschaft, Stress, Infektion..."></div>
+        <div class="field"><label>Praxis-Einschätzung Therapieziel</label><textarea id="ziel-praxis" placeholder="Deine Einschätzung nach dem Gespräch..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Ernährung & Verdauungszustand</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label col-vorab">Angabe Patient vorab</div>
+        <div class="field"><label>Ernährungsform</label>
+          <div class="chips" id="ernaehrung-vorab">
+            <span class="chip" onclick="toggleChip(this)">Omnivor</span>
+            <span class="chip" onclick="toggleChip(this)">Vegetarisch</span>
+            <span class="chip" onclick="toggleChip(this)">Vegan</span>
+            <span class="chip" onclick="toggleChip(this)">Paleo</span>
+            <span class="chip" onclick="toggleChip(this)">Low Carb</span>
+            <span class="chip" onclick="toggleChip(this)">Glutenfrei</span>
+            <span class="chip" onclick="toggleChip(this)">Laktosefrei</span>
+          </div>
+        </div>
+        <div class="field"><label>Unverträglichkeiten (vorab)</label><textarea id="unvert-vorab" placeholder="Laktose, Gluten, Histamin..."></textarea></div>
+        <div class="field"><label>Wasser pro Tag</label>
+          <div class="chips" id="wasser-vorab">
+            <span class="chip" onclick="toggleChip(this)">Unter 1L</span>
+            <span class="chip" onclick="toggleChip(this)">1–2L</span>
+            <span class="chip" onclick="toggleChip(this)">Über 2L</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="col-label col-praxis">Vertiefte Ernährungsanamnese</div>
+        <div class="field"><label>Mahlzeitenrhythmus</label>
+          <div class="chips" id="mahlzeiten">
+            <span class="chip" onclick="toggleChip(this)">1–2x täglich</span>
+            <span class="chip" onclick="toggleChip(this)">3x täglich</span>
+            <span class="chip" onclick="toggleChip(this)">Snacking</span>
+            <span class="chip" onclick="toggleChip(this)">Intervallfasten</span>
+            <span class="chip" onclick="toggleChip(this)">Unregelmäßig</span>
+          </div>
+        </div>
+        <div class="field"><label>Hunger & Appetit</label>
+          <div class="chips" id="hunger">
+            <span class="chip" onclick="toggleChip(this)">Kein Morgenhunger</span>
+            <span class="chip" onclick="toggleChip(this)">Heißhunger</span>
+            <span class="chip" onclick="toggleChip(this)">Süßhunger</span>
+            <span class="chip" onclick="toggleChip(this)">Salzgier</span>
+            <span class="chip" onclick="toggleChip(this)">Appetitlosigkeit</span>
+            <span class="chip" onclick="toggleChip(this)">Normal</span>
+          </div>
+        </div>
+        <div class="field"><label>Auffälligkeiten Ernährung</label><textarea id="ernaehrung-notiz" placeholder="Zuckerkonsum, Fertigkost, Alkohol, Kaffee..."></textarea></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="field"><label>Verdauungszustand aktuell</label>
+      <div class="chips" id="verdauung">
+        <span class="chip" onclick="toggleChip(this)">Optimal</span>
+        <span class="chip" onclick="toggleChip(this)">Verstopfung</span>
+        <span class="chip" onclick="toggleChip(this)">Durchfall</span>
+        <span class="chip" onclick="toggleChip(this)">Wechselnd</span>
+        <span class="chip" onclick="toggleChip(this)">Blähungen</span>
+        <span class="chip" onclick="toggleChip(this)">Sodbrennen</span>
+        <span class="chip" onclick="toggleChip(this)">Völlegefühl</span>
+        <span class="chip" onclick="toggleChip(this)">Übelkeit</span>
+        <span class="chip" onclick="toggleChip(this)">Bauchschmerzen</span>
+        <span class="chip" onclick="toggleChip(this)">Reizdarm</span>
+      </div>
+    </div>
+    <div class="field" style="margin-top:8px"><label>Stuhlkonsistenz (Bristol)</label>
+      <div class="chips" id="stuhl">
+        <span class="chip" onclick="toggleChip(this)">Typ 1 — hart</span>
+        <span class="chip" onclick="toggleChip(this)">Typ 2 — klumpig</span>
+        <span class="chip" onclick="toggleChip(this)">Typ 3 — rissig</span>
+        <span class="chip" onclick="toggleChip(this)">Typ 4 — normal</span>
+        <span class="chip" onclick="toggleChip(this)">Typ 5 — weich</span>
+        <span class="chip" onclick="toggleChip(this)">Typ 6 — breiig</span>
+        <span class="chip" onclick="toggleChip(this)">Typ 7 — wässrig</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Mikronährstoff-Bedarf & Mangelzeichen</div>
+    <div class="highlight">Klinische Zeichen die auf Mängel hinweisen — im Gespräch und durch Inspektion erfassen</div>
+    <div class="field"><label>Haut, Haare, Nägel</label>
+      <div class="chips" id="haut">
+        <span class="chip" onclick="toggleChip(this)">Haarausfall</span>
+        <span class="chip" onclick="toggleChip(this)">Brüchige Nägel</span>
+        <span class="chip" onclick="toggleChip(this)">Weiße Flecken Nägel (Zink)</span>
+        <span class="chip" onclick="toggleChip(this)">Trockene Haut</span>
+        <span class="chip" onclick="toggleChip(this)">Akne</span>
+        <span class="chip" onclick="toggleChip(this)">Ekzeme</span>
+        <span class="chip" onclick="toggleChip(this)">Blässe (Eisen/B12)</span>
+        <span class="chip" onclick="toggleChip(this)">Mundwinkelrhagaden (B2/Eisen)</span>
+        <span class="chip" onclick="toggleChip(this)">Gereizte Zunge (B-Vitamine)</span>
+      </div>
+    </div>
+    <div class="field"><label>Energie & Nervensystem</label>
+      <div class="chips" id="nerven">
+        <span class="chip" onclick="toggleChip(this)">Chronische Erschöpfung</span>
+        <span class="chip" onclick="toggleChip(this)">Brain Fog</span>
+        <span class="chip" onclick="toggleChip(this)">Muskelkrämpfe (Mg)</span>
+        <span class="chip" onclick="toggleChip(this)">Kribbeln Hände/Füße (B12)</span>
+        <span class="chip" onclick="toggleChip(this)">Restless Legs</span>
+        <span class="chip" onclick="toggleChip(this)">Lichtempfindlichkeit</span>
+        <span class="chip" onclick="toggleChip(this)">Konzentrationsprobleme</span>
+        <span class="chip" onclick="toggleChip(this)">Stimmungsschwankungen</span>
+      </div>
+    </div>
+    <div class="field"><label>Immunsystem & Entzündung</label>
+      <div class="chips" id="immun">
+        <span class="chip" onclick="toggleChip(this)">Häufige Infekte</span>
+        <span class="chip" onclick="toggleChip(this)">Langsame Wundheilung</span>
+        <span class="chip" onclick="toggleChip(this)">Chronische Entzündungen</span>
+        <span class="chip" onclick="toggleChip(this)">Autoimmun bekannt</span>
+        <span class="chip" onclick="toggleChip(this)">Allergien / Histamin</span>
+      </div>
+    </div>
+    <div class="field"><label>Verdacht Mikronährstoffmängel</label>
+      <div class="chips" id="maengel">
+        <span class="chip" onclick="toggleChip(this)">Vitamin D</span>
+        <span class="chip" onclick="toggleChip(this)">B12</span>
+        <span class="chip" onclick="toggleChip(this)">Folsäure</span>
+        <span class="chip" onclick="toggleChip(this)">Eisen / Ferritin</span>
+        <span class="chip" onclick="toggleChip(this)">Magnesium</span>
+        <span class="chip" onclick="toggleChip(this)">Zink</span>
+        <span class="chip" onclick="toggleChip(this)">Omega-3</span>
+        <span class="chip" onclick="toggleChip(this)">Jod</span>
+        <span class="chip" onclick="toggleChip(this)">Selen</span>
+        <span class="chip" onclick="toggleChip(this)">Coenzym Q10</span>
+        <span class="chip" onclick="toggleChip(this)">Vitamin C</span>
+        <span class="chip" onclick="toggleChip(this)">Kupfer</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hormone & Schilddrüse</div>
+    <div class="two-col">
+      <div>
+        <div class="col-label col-vorab">Angabe Patient vorab</div>
+        <div class="field"><label>Schilddrüse (vorab)</label>
+          <div class="chips" id="sd-vorab">
+            <span class="chip" onclick="toggleChip(this)">Hashimoto</span>
+            <span class="chip" onclick="toggleChip(this)">Hypothyreose</span>
+            <span class="chip" onclick="toggleChip(this)">Hyperthyreose</span>
+            <span class="chip" onclick="toggleChip(this)">Keine bekannt</span>
+          </div>
+        </div>
+        <div class="field"><label>Zyklus / Hormone (vorab)</label><textarea id="hormone-vorab" placeholder="Aus Anamnesebogen..."></textarea></div>
+      </div>
+      <div>
+        <div class="col-label col-praxis">Vertiefung im Gespräch</div>
+        <div class="field"><label>Hormonsymptome aktuell</label>
+          <div class="chips" id="hormonsymp">
+            <span class="chip" onclick="toggleChip(this)">Gewichtszunahme</span>
+            <span class="chip" onclick="toggleChip(this)">Kälteempfindlichkeit</span>
+            <span class="chip" onclick="toggleChip(this)">Hitzewallungen</span>
+            <span class="chip" onclick="toggleChip(this)">Libidoverlust</span>
+            <span class="chip" onclick="toggleChip(this)">Zyklusunregelmäßigkeit</span>
+            <span class="chip" onclick="toggleChip(this)">PMS stark</span>
+            <span class="chip" onclick="toggleChip(this)">Östrogendominanz V.</span>
+            <span class="chip" onclick="toggleChip(this)">Progesteronmangel V.</span>
+            <span class="chip" onclick="toggleChip(this)">Cortisol erhöht V.</span>
+          </div>
+        </div>
+        <div class="field"><label>Stressachse / HPA-Achse</label>
+          <div class="chips" id="hpa">
+            <span class="chip" onclick="toggleChip(this)">Morgens erschöpft</span>
+            <span class="chip" onclick="toggleChip(this)">Abends wach</span>
+            <span class="chip" onclick="toggleChip(this)">Salzgier</span>
+            <span class="chip" onclick="toggleChip(this)">Dauerstress</span>
+            <span class="chip" onclick="toggleChip(this)">Burnout V.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Energie, Schlaf & Psyche</div>
+    <div class="scale-row"><span class="scale-label">Energielevel aktuell</span><input type="range" min="1" max="10" value="5" id="energie" oninput="document.getElementById('e-val').textContent=this.value"><span class="scale-val" id="e-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Schlafqualität</span><input type="range" min="1" max="10" value="5" id="schlaf" oninput="document.getElementById('s-val').textContent=this.value"><span class="scale-val" id="s-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Stresslevel</span><input type="range" min="1" max="10" value="5" id="stress" oninput="document.getElementById('st-val').textContent=this.value"><span class="scale-val" id="st-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Schmerzniveau</span><input type="range" min="0" max="10" value="0" id="schmerz" oninput="document.getElementById('schm-val').textContent=this.value"><span class="scale-val" id="schm-val">0</span></div>
+    <div class="field" style="margin-top:8px"><label>Psyche & Belastungen</label><textarea id="psyche" placeholder="Aktuelle Lebenssituation, emotionale Belastungen, Burnout, Depression..."></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">TCM-Beobachtung</div>
+    <div class="field"><label>Zungendiagnose</label>
+      <div class="chips" id="zunge">
+        <span class="chip" onclick="toggleChip(this)">Blass</span>
+        <span class="chip" onclick="toggleChip(this)">Gerötet</span>
+        <span class="chip" onclick="toggleChip(this)">Dunkelrot</span>
+        <span class="chip" onclick="toggleChip(this)">Weißer Belag</span>
+        <span class="chip" onclick="toggleChip(this)">Gelber Belag</span>
+        <span class="chip" onclick="toggleChip(this)">Kein Belag</span>
+        <span class="chip" onclick="toggleChip(this)">Gezähnt (Milz-Qi-Mangel)</span>
+        <span class="chip" onclick="toggleChip(this)">Risse (Yin-Mangel)</span>
+        <span class="chip" onclick="toggleChip(this)">Geschwollen</span>
+        <span class="chip" onclick="toggleChip(this)">Zittert</span>
+      </div>
+    </div>
+    <div class="field"><label>Pulsdiagnose</label>
+      <div class="chips" id="puls-tcm">
+        <span class="chip" onclick="toggleChip(this)">Oberflächlich</span>
+        <span class="chip" onclick="toggleChip(this)">Tief</span>
+        <span class="chip" onclick="toggleChip(this)">Langsam</span>
+        <span class="chip" onclick="toggleChip(this)">Schnell</span>
+        <span class="chip" onclick="toggleChip(this)">Leer</span>
+        <span class="chip" onclick="toggleChip(this)">Voll</span>
+        <span class="chip" onclick="toggleChip(this)">Saitenförmig</span>
+        <span class="chip" onclick="toggleChip(this)">Schlüpfrig</span>
+        <span class="chip" onclick="toggleChip(this)">Rau</span>
+      </div>
+    </div>
+    <div class="field"><label>TCM-Syndrom Verdacht</label><textarea id="tcm-syndrom" placeholder="z.B. Milz-Qi-Mangel, Leber-Qi-Stagnation, Nieren-Yin-Mangel..."></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Therapieplanung</div>
+    <div class="field"><label>Empfohlene Diagnostik</label>
+      <div class="chips" id="diagnostik">
+        <span class="chip" onclick="toggleChip(this)">Großes Blutbild</span>
+        <span class="chip" onclick="toggleChip(this)">Mikronährstoffe</span>
+        <span class="chip" onclick="toggleChip(this)">Schilddrüse (TSH, fT3, fT4, TPO-AK)</span>
+        <span class="chip" onclick="toggleChip(this)">Hormone (Östrogen, Progesteron, Testosteron)</span>
+        <span class="chip" onclick="toggleChip(this)">Cortisol (Speichel)</span>
+        <span class="chip" onclick="toggleChip(this)">Stuhlanalyse</span>
+        <span class="chip" onclick="toggleChip(this)">Entzündungsmarker (CRP, IL-6)</span>
+        <span class="chip" onclick="toggleChip(this)">Schwermetalle</span>
+        <span class="chip" onclick="toggleChip(this)">Nahrungsmittel-Intoleranzen</span>
+        <span class="chip" onclick="toggleChip(this)">Vitamin D + K2</span>
+        <span class="chip" onclick="toggleChip(this)">Ferritin / Eisen</span>
+        <span class="chip" onclick="toggleChip(this)">Homocystein</span>
+      </div>
+    </div>
+    <div class="field"><label>Geplante Therapiemaßnahmen</label>
+      <div class="chips" id="therapie">
+        <span class="chip" onclick="toggleChip(this)">Akupunktur</span>
+        <span class="chip" onclick="toggleChip(this)">Infusionstherapie</span>
+        <span class="chip" onclick="toggleChip(this)">Mikronährstoffe oral</span>
+        <span class="chip" onclick="toggleChip(this)">Ernährungsberatung</span>
+        <span class="chip" onclick="toggleChip(this)">Darmaufbau</span>
+        <span class="chip" onclick="toggleChip(this)">Hormonbalance</span>
+        <span class="chip" onclick="toggleChip(this)">Schröpfen</span>
+        <span class="chip" onclick="toggleChip(this)">Blutegel</span>
+        <span class="chip" onclick="toggleChip(this)">Lymphaktivierung</span>
+        <span class="chip" onclick="toggleChip(this)">PRP / Aesthetic</span>
+        <span class="chip" onclick="toggleChip(this)">Stressmanagement</span>
+      </div>
+    </div>
+    <div class="field"><label>Therapieplan & Notizen</label><textarea id="therapieplan" style="min-height:80px" placeholder="Deine Einschätzung, Priorisierung, nächste Schritte..."></textarea></div>
+    <div class="field"><label>Nächster Termin</label><input type="text" id="naechster-termin" placeholder="z.B. in 3 Wochen, Akupunktur Serie..."></div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Erstgespräch speichern & absenden</button>
+  <div class="success" id="success-msg">Akte gespeichert! Du erhältst die vollständige Dokumentation per E-Mail.</div>
+  <div class="error" id="error-msg">Bitte Name und Datum ausfüllen.</div>
+</div>
+
+<script>
+document.getElementById('datum').value=new Date().toISOString().split('T')[0];
+function toggleChip(el){el.classList.toggle('active')}
+function getChips(id){return[...document.querySelectorAll('#'+id+' .chip.active')].map(c=>c.textContent).join(', ')||'–'}
+function val(id){return document.getElementById(id)?.value||'–'}
+
+function calcBMI(){
+  const g=parseFloat(document.getElementById('gewicht').value);
+  const h=parseFloat(document.getElementById('groesse').value)/100;
+  if(g&&h){document.getElementById('bmi').value=(g/(h*h)).toFixed(1);}
+}
+document.getElementById('gewicht').addEventListener('input',calcBMI);
+document.getElementById('groesse').addEventListener('input',calcBMI);
+
+async function submitForm(){
+  const name=val('name');
+  const datum=val('datum');
+  if(name==='–'||datum==='–'){document.getElementById('error-msg').style.display='block';return;}
+  document.getElementById('error-msg').style.display='none';
+
+  const message=`
+ERSTGESPRÄCH DOKUMENTATION
+Patient/in: ${name} | Datum: ${datum} | Terminart: ${val('terminart')}
+Geburtsdatum: ${val('geburtsdatum')}
+
+VITALPARAMETER
+Blutdruck: ${val('rr-sys')}/${val('rr-dia')} mmHg | Puls: ${val('puls')} /min
+SpO2: ${val('spo2')}% | BMI: ${val('bmi')} kg/m²
+Gewicht: ${val('gewicht')} kg | Größe: ${val('groesse')} cm | Blutgruppe: ${val('blutgruppe')}
+Notizen Vitalparameter: ${val('vital-notizen')}
+
+AKTUELLE BESCHWERDEN
+Vorab: ${val('beschwerden-vorab')}
+Seit wann: ${val('seitwann-vorab')}
+Therapieziel vorab: ${val('ziel-vorab')}
+Vertiefung Gespräch: ${val('beschwerden-praxis')}
+Auslöser: ${val('ausloser')}
+Praxis-Therapieziel: ${val('ziel-praxis')}
+
+ERNÄHRUNG & VERDAUUNG
+Ernährungsform: ${getChips('ernaehrung-vorab')}
+Unverträglichkeiten: ${val('unvert-vorab')}
+Wasser: ${getChips('wasser-vorab')}
+Mahlzeitenrhythmus: ${getChips('mahlzeiten')}
+Hunger/Appetit: ${getChips('hunger')}
+Notizen Ernährung: ${val('ernaehrung-notiz')}
+Verdauungszustand: ${getChips('verdauung')}
+Stuhlkonsistenz: ${getChips('stuhl')}
+
+MIKRONÄHRSTOFF-BEDARF
+Haut/Haare/Nägel: ${getChips('haut')}
+Energie/Nervensystem: ${getChips('nerven')}
+Immunsystem: ${getChips('immun')}
+Verdacht Mängel: ${getChips('maengel')}
+
+HORMONE & SCHILDDRÜSE
+Schilddrüse: ${getChips('sd-vorab')}
+Hormone vorab: ${val('hormone-vorab')}
+Hormonsymptome: ${getChips('hormonsymp')}
+HPA-Achse: ${getChips('hpa')}
+
+ENERGIE, SCHLAF & PSYCHE
+Energielevel: ${val('energie')}/10 | Schlaf: ${val('schlaf')}/10
+Stress: ${val('stress')}/10 | Schmerz: ${val('schmerz')}/10
+Psyche: ${val('psyche')}
+
+TCM-BEOBACHTUNG
+Zunge: ${getChips('zunge')}
+Puls TCM: ${getChips('puls-tcm')}
+TCM-Syndrom: ${val('tcm-syndrom')}
+
+THERAPIEPLANUNG
+Diagnostik: ${getChips('diagnostik')}
+Therapiemaßnahmen: ${getChips('therapie')}
+Therapieplan: ${val('therapieplan')}
+Nächster Termin: ${val('naechster-termin')}
+  `;
+
+  const formData=new FormData();
+  formData.append('name',name);
+  formData.append('datum',datum);
+  formData.append('message',message);
+  formData.append('_subject','Erstgespräch – '+name+' – '+datum);
+  try{
+    const res=await fetch('https://formspree.io/f/mgonlzap',{method:'POST',body:formData,headers:{Accept:'application/json'}});
+    if(res.ok){document.getElementById('success-msg').style.display='block';window.scrollTo(0,0);}
+    else{document.getElementById('error-msg').textContent='Fehler beim Senden.';document.getElementById('error-msg').style.display='block';}
+  }catch(e){document.getElementById('error-msg').style.display='block';}
+}
+</script>
+</body>
+</html>
