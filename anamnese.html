@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prevention.health – Anamnesebogen</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a18;min-height:100vh;padding:1.5rem 1rem}
+.tracker{max-width:640px;margin:0 auto}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{font-size:20px;font-weight:500;letter-spacing:0.08em;color:#1a1a18}
+.header p{font-size:13px;color:#888780;margin-top:4px}
+.section{background:white;border:1px solid #e8e7e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.field{margin-bottom:12px}
+.field label{font-size:13px;color:#5F5E5A;display:block;margin-bottom:4px}
+input[type=text],input[type=date],input[type=email],input[type=tel],select{width:100%;font-size:14px;padding:8px 12px;border:1px solid #e8e7e2;border-radius:8px;background:#fafaf8;color:#1a1a18;outline:none;-webkit-appearance:none}
+input:focus,select:focus{border-color:#1D9E75;background:white}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+textarea{width:100%;min-height:60px;font-size:14px;padding:8px 10px;border:1px solid #e8e7e2;border-radius:8px;background:#fafaf8;color:#1a1a18;resize:none;font-family:inherit;line-height:1.5;outline:none}
+textarea:focus{border-color:#1D9E75;background:white}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{font-size:13px;padding:5px 12px;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fafaf8;color:#5F5E5A;transition:all 0.15s;user-select:none}
+.chip.active{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:500}
+.scale-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.scale-label{font-size:13px;color:#1a1a18;width:160px;flex-shrink:0}
+input[type=range]{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e8e7e2;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#1D9E75;cursor:pointer}
+.scale-val{font-size:13px;font-weight:500;color:#1a1a18;width:24px;text-align:right}
+.radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.radio-btn{font-size:13px;padding:5px 14px;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fafaf8;color:#5F5E5A;user-select:none}
+.radio-btn.active{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:500}
+.submit-btn{width:100%;padding:14px;font-size:15px;font-weight:500;background:#1D9E75;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:0.5rem}
+.submit-btn:hover{background:#0F6E56}
+.success{display:none;text-align:center;padding:1.5rem;color:#085041;font-size:15px;font-weight:500;background:#E1F5EE;border-radius:12px;margin-top:1rem}
+.error{display:none;text-align:center;padding:1rem;color:#993C1D;font-size:14px;background:#FAECE7;border-radius:12px;margin-top:1rem}
+.hint{font-size:12px;color:#888780;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="tracker">
+  <div class="header">
+    <h1>prevention.health</h1>
+    <p>Anamnesebogen</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Stammdaten</div>
+    <div class="field"><label>Vollständiger Name</label><input type="text" id="name" placeholder="Vorname Nachname"></div>
+    <div class="two-col">
+      <div class="field"><label>Geburtsdatum</label><input type="date" id="geburtsdatum"></div>
+      <div class="field"><label>Blutgruppe</label>
+        <select id="blutgruppe">
+          <option value="">– bitte wählen –</option>
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option><option>0+</option><option>0-</option>
+          <option>Unbekannt</option>
+        </select>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label>Gewicht (kg)</label><input type="text" id="gewicht" placeholder="z.B. 68"></div>
+      <div class="field"><label>Größe (cm)</label><input type="text" id="groesse" placeholder="z.B. 168"></div>
+    </div>
+    <div class="field"><label>Beruf</label><input type="text" id="beruf" placeholder="Dein Beruf"></div>
+    <div class="field"><label>E-Mail</label><input type="email" id="email" placeholder="deine@email.de"></div>
+    <div class="field"><label>Telefon</label><input type="tel" id="telefon" placeholder="+49..."></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Aktuelle Beschwerden & Therapieziel</div>
+    <div class="field"><label>Was sind deine aktuellen Hauptbeschwerden?</label><textarea id="beschwerden" placeholder="Beschreibe deine Beschwerden so genau wie möglich..."></textarea></div>
+    <div class="field"><label>Seit wann bestehen diese Beschwerden?</label><input type="text" id="seit-wann" placeholder="z.B. seit 3 Monaten, seit 2 Jahren..."></div>
+    <div class="field"><label>Was ist dein Therapieziel — was soll sich verändern?</label><textarea id="therapieziel" placeholder="Was wünschst du dir von der Behandlung?"></textarea></div>
+    <div class="field"><label>Warst du deswegen bereits bei anderen Therapeuten oder Ärzten?</label><textarea id="bisherige-therapie" placeholder="Was wurde bisher unternommen, was hat geholfen / nicht geholfen?"></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Krankheitsgeschichte</div>
+    <div class="field"><label>Chronische Erkrankungen</label><textarea id="chronisch" placeholder="z.B. Hashimoto, Diabetes, Bluthochdruck..."></textarea></div>
+    <div class="field"><label>Operationen</label><textarea id="operationen" placeholder="Art der Operation + Jahr"></textarea></div>
+    <div class="field">
+      <label>Infektionskrankheiten</label>
+      <div class="chips" id="infektions-chips">
+        <span class="chip" onclick="toggleChip(this)">Borreliose</span>
+        <span class="chip" onclick="toggleChip(this)">EBV / Pfeiffersches Drüsenfieber</span>
+        <span class="chip" onclick="toggleChip(this)">COVID-19</span>
+        <span class="chip" onclick="toggleChip(this)">Long COVID</span>
+        <span class="chip" onclick="toggleChip(this)">Hepatitis</span>
+        <span class="chip" onclick="toggleChip(this)">Tuberkulose</span>
+        <span class="chip" onclick="toggleChip(this)">Herpes / HSV</span>
+        <span class="chip" onclick="toggleChip(this)">CMV</span>
+        <span class="chip" onclick="toggleChip(this)">Parasiten</span>
+        <span class="chip" onclick="toggleChip(this)">Candida</span>
+        <span class="chip" onclick="toggleChip(this)">SIBO</span>
+        <span class="chip" onclick="toggleChip(this)">Keine bekannt</span>
+      </div>
+      <textarea id="infektionen-detail" style="margin-top:8px" placeholder="Weitere Infektionen oder Details..."></textarea>
+    </div>
+    <div class="field"><label>Allergien</label><textarea id="allergien" placeholder="Nahrungsmittel-, Umwelt-, Medikamentenallergien..."></textarea></div>
+    <div class="field"><label>Impfungen (letzte / auffällige)</label><textarea id="impfungen" placeholder="z.B. COVID-Impfung 2022, Reaktionen nach Impfungen..."></textarea></div>
+    <div class="field"><label>Erkrankungen der Eltern / Familie</label><textarea id="familie" placeholder="z.B. Schilddrüsenerkrankungen, Krebs, Herzerkrankungen, Autoimmunerkrankungen..."></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Medikamente & Supplements</div>
+    <div class="field"><label>Aktuelle Medikamente</label><textarea id="medikamente" placeholder="Name, Dosis, seit wann..."></textarea></div>
+    <div class="field"><label>Aktuelle Supplements</label><textarea id="supplements" placeholder="Name, Dosis, seit wann..."></textarea></div>
+    <div class="field"><label>Antibiotika in den letzten 2 Jahren</label>
+      <div class="radio-group" id="antibiotika">
+        <span class="radio-btn" onclick="selectRadio('antibiotika',this)">Ja, einmal</span>
+        <span class="radio-btn" onclick="selectRadio('antibiotika',this)">Ja, mehrfach</span>
+        <span class="radio-btn" onclick="selectRadio('antibiotika',this)">Nein</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hormone, Zyklus & Schilddrüse</div>
+    <div class="field"><label>Biologisches Geschlecht</label>
+      <div class="radio-group" id="geschlecht">
+        <span class="radio-btn" onclick="selectRadio('geschlecht',this)">Weiblich</span>
+        <span class="radio-btn" onclick="selectRadio('geschlecht',this)">Männlich</span>
+        <span class="radio-btn" onclick="selectRadio('geschlecht',this)">Divers</span>
+      </div>
+    </div>
+    <div class="field"><label>Zyklusstatus (falls relevant)</label>
+      <div class="radio-group" id="zyklus">
+        <span class="radio-btn" onclick="selectRadio('zyklus',this)">Regelmäßig</span>
+        <span class="radio-btn" onclick="selectRadio('zyklus',this)">Unregelmäßig</span>
+        <span class="radio-btn" onclick="selectRadio('zyklus',this)">Perimenopause</span>
+        <span class="radio-btn" onclick="selectRadio('zyklus',this)">Menopause</span>
+        <span class="radio-btn" onclick="selectRadio('zyklus',this)">Pille / Hormonspirale</span>
+        <span class="radio-btn" onclick="selectRadio('zyklus',this)">Nicht relevant</span>
+      </div>
+    </div>
+    <div class="field"><label>Zyklusbeschwerden / Hormonelle Auffälligkeiten</label><textarea id="zyklusbeschwerden" placeholder="z.B. PMS, starke Blutungen, Hitzewallungen, Libidoverlust..."></textarea></div>
+    <div class="field"><label>Schilddrüse</label>
+      <div class="chips" id="schilddruse-chips">
+        <span class="chip" onclick="toggleChip(this)">Hashimoto</span>
+        <span class="chip" onclick="toggleChip(this)">Hypothyreose</span>
+        <span class="chip" onclick="toggleChip(this)">Hyperthyreose</span>
+        <span class="chip" onclick="toggleChip(this)">Morbus Basedow</span>
+        <span class="chip" onclick="toggleChip(this)">Keine bekannte Erkrankung</span>
+        <span class="chip" onclick="toggleChip(this)">Schilddrüsenmedikamente</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Verdauung & Mikrobiom</div>
+    <div class="field"><label>Stuhlgewohnheiten</label>
+      <div class="radio-group" id="stuhl">
+        <span class="radio-btn" onclick="selectRadio('stuhl',this)">Täglich, normal</span>
+        <span class="radio-btn" onclick="selectRadio('stuhl',this)">Unregelmäßig</span>
+        <span class="radio-btn" onclick="selectRadio('stuhl',this)">Verstopfung</span>
+        <span class="radio-btn" onclick="selectRadio('stuhl',this)">Durchfall</span>
+        <span class="radio-btn" onclick="selectRadio('stuhl',this)">Wechselnd</span>
+      </div>
+    </div>
+    <div class="field"><label>Verdauungsbeschwerden</label>
+      <div class="chips" id="verdauung-chips">
+        <span class="chip" onclick="toggleChip(this)">Blähungen</span>
+        <span class="chip" onclick="toggleChip(this)">Bauchschmerzen</span>
+        <span class="chip" onclick="toggleChip(this)">Sodbrennen</span>
+        <span class="chip" onclick="toggleChip(this)">Übelkeit</span>
+        <span class="chip" onclick="toggleChip(this)">Völlegefühl</span>
+        <span class="chip" onclick="toggleChip(this)">Reizdarm</span>
+        <span class="chip" onclick="toggleChip(this)">Leaky Gut bekannt</span>
+        <span class="chip" onclick="toggleChip(this)">Keine Beschwerden</span>
+      </div>
+    </div>
+    <div class="field"><label>Nahrungsmittelunverträglichkeiten</label><textarea id="unvertraeglichkeiten" placeholder="z.B. Laktose, Gluten, Histamin, Fructose..."></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Energie, Schlaf & Psyche</div>
+    <div class="scale-row"><span class="scale-label">Energielevel allgemein</span><input type="range" min="1" max="10" value="5" id="energie" oninput="document.getElementById('e-val').textContent=this.value"><span class="scale-val" id="e-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Schlafqualität</span><input type="range" min="1" max="10" value="5" id="schlaf" oninput="document.getElementById('s-val').textContent=this.value"><span class="scale-val" id="s-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Stresslevel</span><input type="range" min="1" max="10" value="5" id="stress" oninput="document.getElementById('st-val').textContent=this.value"><span class="scale-val" id="st-val">5</span></div>
+    <div class="field" style="margin-top:8px"><label>Schlafprobleme</label>
+      <div class="chips" id="schlaf-chips">
+        <span class="chip" onclick="toggleChip(this)">Einschlafen</span>
+        <span class="chip" onclick="toggleChip(this)">Durchschlafen</span>
+        <span class="chip" onclick="toggleChip(this)">Zu früh aufwachen</span>
+        <span class="chip" onclick="toggleChip(this)">Nicht erholt aufwachen</span>
+        <span class="chip" onclick="toggleChip(this)">Keine Probleme</span>
+      </div>
+    </div>
+    <div class="field"><label>Psychische Belastungen / Diagnosen</label><textarea id="psyche" placeholder="z.B. Burnout, Depression, Angststörung, aktuelle Belastungssituationen..."></textarea></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Ernährung & Lifestyle</div>
+    <div class="field"><label>Ernährungsform</label>
+      <div class="chips" id="ernaehrung-chips">
+        <span class="chip" onclick="toggleChip(this)">Omnivor</span>
+        <span class="chip" onclick="toggleChip(this)">Vegetarisch</span>
+        <span class="chip" onclick="toggleChip(this)">Vegan</span>
+        <span class="chip" onclick="toggleChip(this)">Paleo</span>
+        <span class="chip" onclick="toggleChip(this)">Low Carb</span>
+        <span class="chip" onclick="toggleChip(this)">Glutenfrei</span>
+        <span class="chip" onclick="toggleChip(this)">Laktosefrei</span>
+        <span class="chip" onclick="toggleChip(this)">Keine feste Form</span>
+      </div>
+    </div>
+    <div class="field"><label>Wasser trinken pro Tag</label>
+      <div class="radio-group" id="wasser">
+        <span class="radio-btn" onclick="selectRadio('wasser',this)">Unter 1 Liter</span>
+        <span class="radio-btn" onclick="selectRadio('wasser',this)">1–2 Liter</span>
+        <span class="radio-btn" onclick="selectRadio('wasser',this)">Über 2 Liter</span>
+      </div>
+    </div>
+    <div class="field"><label>Bewegung</label>
+      <div class="radio-group" id="bewegung">
+        <span class="radio-btn" onclick="selectRadio('bewegung',this)">Kaum / keine</span>
+        <span class="radio-btn" onclick="selectRadio('bewegung',this)">1–2x pro Woche</span>
+        <span class="radio-btn" onclick="selectRadio('bewegung',this)">3–4x pro Woche</span>
+        <span class="radio-btn" onclick="selectRadio('bewegung',this)">Täglich</span>
+      </div>
+    </div>
+    <div class="field"><label>Alkohol</label>
+      <div class="radio-group" id="alkohol">
+        <span class="radio-btn" onclick="selectRadio('alkohol',this)">Kein</span>
+        <span class="radio-btn" onclick="selectRadio('alkohol',this)">Gelegentlich</span>
+        <span class="radio-btn" onclick="selectRadio('alkohol',this)">Regelmäßig</span>
+      </div>
+    </div>
+    <div class="field"><label>Rauchen</label>
+      <div class="radio-group" id="rauchen">
+        <span class="radio-btn" onclick="selectRadio('rauchen',this)">Nein</span>
+        <span class="radio-btn" onclick="selectRadio('rauchen',this)">Ja</span>
+        <span class="radio-btn" onclick="selectRadio('rauchen',this)">Ex-Raucher/in</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Umwelt, Toxine & Zähne</div>
+    <div class="field"><label>Zahnanamnese</label>
+      <div class="chips" id="zahne-chips">
+        <span class="chip" onclick="toggleChip(this)">Amalgamfüllungen</span>
+        <span class="chip" onclick="toggleChip(this)">Amalgam entfernt</span>
+        <span class="chip" onclick="toggleChip(this)">Wurzelbehandlungen</span>
+        <span class="chip" onclick="toggleChip(this)">Implantate</span>
+        <span class="chip" onclick="toggleChip(this)">Kieferentzündungen</span>
+        <span class="chip" onclick="toggleChip(this)">Keine Auffälligkeiten</span>
+      </div>
+    </div>
+    <div class="field"><label>Haut, Haare & Nägel</label>
+      <div class="chips" id="haut-chips">
+        <span class="chip" onclick="toggleChip(this)">Akne</span>
+        <span class="chip" onclick="toggleChip(this)">Ekzeme / Neurodermitis</span>
+        <span class="chip" onclick="toggleChip(this)">Psoriasis</span>
+        <span class="chip" onclick="toggleChip(this)">Haarausfall</span>
+        <span class="chip" onclick="toggleChip(this)">Brüchige Nägel</span>
+        <span class="chip" onclick="toggleChip(this)">Trockene Haut</span>
+        <span class="chip" onclick="toggleChip(this)">Keine Auffälligkeiten</span>
+      </div>
+    </div>
+    <div class="field"><label>Toxische Belastungen</label>
+      <div class="chips" id="toxin-chips">
+        <span class="chip" onclick="toggleChip(this)">Schwermetalle bekannt</span>
+        <span class="chip" onclick="toggleChip(this)">Schimmelpilzbelastung</span>
+        <span class="chip" onclick="toggleChip(this)">Pestizidbelastung</span>
+        <span class="chip" onclick="toggleChip(this)">Elektrosensibilität</span>
+        <span class="chip" onclick="toggleChip(this)">Belastender Arbeitsplatz</span>
+        <span class="chip" onclick="toggleChip(this)">Keine bekannt</span>
+      </div>
+    </div>
+    <div class="field"><label>Sonstiges</label><textarea id="sonstiges" placeholder="Alles was dir noch wichtig erscheint..."></textarea></div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Anamnesebogen absenden</button>
+  <div class="success" id="success-msg">Vielen Dank! Dein Anamnesebogen wurde erfolgreich übermittelt. Sabine erhält deine Daten automatisch.</div>
+  <div class="error" id="error-msg">Etwas ist schiefgelaufen. Bitte versuche es nochmal.</div>
+</div>
+
+<script>
+function toggleChip(el){el.classList.toggle('active')}
+function selectRadio(group,el){document.querySelectorAll('#'+group+' .radio-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+function getChips(id){return[...document.querySelectorAll('#'+id+' .chip.active')].map(c=>c.textContent).join(', ')||'–'}
+function getRadio(id){return document.querySelector('#'+id+' .radio-btn.active')?.textContent||'–'}
+function val(id){return document.getElementById(id)?.value||'–'}
+
+async function submitForm(){
+  const message=`
+ANAMNESEBOGEN – ${new Date().toLocaleDateString('de-DE')}
+
+STAMMDATEN
+Name: ${val('name')}
+Geburtsdatum: ${val('geburtsdatum')}
+Blutgruppe: ${val('blutgruppe')}
+Gewicht: ${val('gewicht')} kg | Größe: ${val('groesse')} cm
+Beruf: ${val('beruf')}
+E-Mail: ${val('email')}
+Telefon: ${val('telefon')}
+
+AKTUELLE BESCHWERDEN & THERAPIEZIEL
+Beschwerden: ${val('beschwerden')}
+Seit wann: ${val('seit-wann')}
+Therapieziel: ${val('therapieziel')}
+Bisherige Therapien: ${val('bisherige-therapie')}
+
+KRANKHEITSGESCHICHTE
+Chronische Erkrankungen: ${val('chronisch')}
+Operationen: ${val('operationen')}
+Infektionskrankheiten: ${getChips('infektions-chips')} | ${val('infektionen-detail')}
+Allergien: ${val('allergien')}
+Impfungen: ${val('impfungen')}
+Familienanamnese: ${val('familie')}
+
+MEDIKAMENTE & SUPPLEMENTS
+Medikamente: ${val('medikamente')}
+Supplements: ${val('supplements')}
+Antibiotika letzte 2 Jahre: ${getRadio('antibiotika')}
+
+HORMONE, ZYKLUS & SCHILDDRÜSE
+Geschlecht: ${getRadio('geschlecht')}
+Zyklusstatus: ${getRadio('zyklus')}
+Zyklusbeschwerden: ${val('zyklusbeschwerden')}
+Schilddrüse: ${getChips('schilddruse-chips')}
+
+VERDAUUNG & MIKROBIOM
+Stuhlgewohnheiten: ${getRadio('stuhl')}
+Verdauungsbeschwerden: ${getChips('verdauung-chips')}
+Unverträglichkeiten: ${val('unvertraeglichkeiten')}
+
+ENERGIE, SCHLAF & PSYCHE
+Energielevel: ${val('energie')}/10
+Schlafqualität: ${val('schlaf')}/10
+Stresslevel: ${val('stress')}/10
+Schlafprobleme: ${getChips('schlaf-chips')}
+Psyche: ${val('psyche')}
+
+ERNÄHRUNG & LIFESTYLE
+Ernährungsform: ${getChips('ernaehrung-chips')}
+Wasser pro Tag: ${getRadio('wasser')}
+Bewegung: ${getRadio('bewegung')}
+Alkohol: ${getRadio('alkohol')}
+Rauchen: ${getRadio('rauchen')}
+
+UMWELT, TOXINE & ZÄHNE
+Zahnanamnese: ${getChips('zahne-chips')}
+Haut / Haare / Nägel: ${getChips('haut-chips')}
+Toxische Belastungen: ${getChips('toxin-chips')}
+Sonstiges: ${val('sonstiges')}
+  `;
+
+  const formData=new FormData();
+  formData.append('name',val('name'));
+  formData.append('message',message);
+  formData.append('_subject','Anamnesebogen – '+val('name'));
+
+  try{
+    const res=await fetch('https://formspree.io/f/mgonlzap',{method:'POST',body:formData,headers:{Accept:'application/json'}});
+    if(res.ok){
+      document.getElementById('success-msg').style.display='block';
+      document.getElementById('error-msg').style.display='none';
+      window.scrollTo(0,0);
+    }else{
+      document.getElementById('error-msg').style.display='block';
+    }
+  }catch(e){
+    document.getElementById('error-msg').style.display='block';
+  }
+}
+</script>
+</body>
+</html>
