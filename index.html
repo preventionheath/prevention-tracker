@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prevention.health – Tagesprotokoll</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a18;min-height:100vh;padding:1.5rem 1rem}
+.tracker{max-width:640px;margin:0 auto}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{font-size:20px;font-weight:500;letter-spacing:0.08em;color:#1a1a18}
+.header p{font-size:13px;color:#888780;margin-top:4px}
+.date-bar{display:flex;justify-content:center;margin-bottom:1.5rem}
+.date-bar input{font-size:14px;padding:8px 14px;border:1px solid #d3d1c7;border-radius:8px;background:white;color:#1a1a18;outline:none}
+.section{background:white;border:1px solid #e8e7e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.meal-row{display:grid;grid-template-columns:90px 1fr;gap:8px;align-items:start;margin-bottom:8px}
+.meal-label{font-size:13px;color:#5F5E5A;padding-top:9px}
+textarea{width:100%;min-height:52px;font-size:14px;padding:8px 10px;border:1px solid #e8e7e2;border-radius:8px;background:#fafaf8;color:#1a1a18;resize:none;font-family:inherit;line-height:1.5;outline:none}
+textarea:focus{border-color:#1D9E75;background:white}
+.scale-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.scale-label{font-size:13px;color:#1a1a18;width:120px;flex-shrink:0}
+input[type=range]{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e8e7e2;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#1D9E75;cursor:pointer}
+.scale-val{font-size:13px;font-weight:500;color:#1a1a18;width:24px;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:13px;padding:5px 12px;border:1px solid #d3d1c7;border-radius:20px;cursor:pointer;background:#fafaf8;color:#5F5E5A;transition:all 0.15s;user-select:none}
+.chip:hover{border-color:#1D9E75;color:#085041}
+.chip.active{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:500}
+.stool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.stool-btn{font-size:11px;padding:8px 4px;border:1px solid #d3d1c7;border-radius:8px;cursor:pointer;background:#fafaf8;color:#5F5E5A;text-align:center;line-height:1.4}
+.stool-btn:hover{border-color:#1D9E75}
+.stool-btn.active{background:#E1F5EE;border-color:#0F6E56;color:#085041}
+.submit-btn{width:100%;padding:14px;font-size:15px;font-weight:500;background:#1D9E75;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:0.5rem}
+.submit-btn:hover{background:#0F6E56}
+.success{display:none;text-align:center;padding:1.5rem;color:#085041;font-size:15px;font-weight:500;background:#E1F5EE;border-radius:12px;margin-top:1rem}
+</style>
+</head>
+<body>
+<div class="tracker">
+  <div class="header">
+    <h1>prevention.health</h1>
+    <p>Tagesprotokoll</p>
+  </div>
+  <div class="date-bar">
+    <input type="date" id="datum">
+  </div>
+  <div class="section">
+    <div class="section-title">Mahlzeiten</div>
+    <div class="meal-row"><span class="meal-label">Frühstück</span><textarea id="fruehstueck" placeholder="Was hast du gegessen?"></textarea></div>
+    <div class="meal-row"><span class="meal-label">Mittagessen</span><textarea id="mittagessen" placeholder="Was hast du gegessen?"></textarea></div>
+    <div class="meal-row"><span class="meal-label">Abendessen</span><textarea id="abendessen" placeholder="Was hast du gegessen?"></textarea></div>
+    <div class="meal-row"><span class="meal-label">Snacks</span><textarea id="snacks" placeholder="Zwischenmahlzeiten, Getränke..."></textarea></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Energie & Schlaf</div>
+    <div class="scale-row"><span class="scale-label">Energie</span><input type="range" min="1" max="10" value="5" id="energie" oninput="document.getElementById('e-val').textContent=this.value"><span class="scale-val" id="e-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Schlafqualität</span><input type="range" min="1" max="10" value="5" id="schlaf" oninput="document.getElementById('s-val').textContent=this.value"><span class="scale-val" id="s-val">5</span></div>
+    <div class="scale-row"><span class="scale-label">Schlafdauer (h)</span><input type="range" min="3" max="12" step="0.5" value="7" id="schlafdauer" oninput="document.getElementById('sd-val').textContent=this.value"><span class="scale-val" id="sd-val">7</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Stimmung & Befinden</div>
+    <div class="scale-row"><span class="scale-label">Stimmung</span><input type="range" min="1" max="10" value="5" id="stimmung" oninput="document.getElementById('st-val').textContent=this.value"><span class="scale-val" id="st-val">5</span></div>
+    <div style="margin-top:8px">
+      <div style="font-size:13px;color:#888780;margin-bottom:6px">Wie fühlst du dich heute?</div>
+      <div class="chips">
+        <span class="chip" onclick="toggleChip(this)">Ausgeglichen</span>
+        <span class="chip" onclick="toggleChip(this)">Müde</span>
+        <span class="chip" onclick="toggleChip(this)">Gestresst</span>
+        <span class="chip" onclick="toggleChip(this)">Entspannt</span>
+        <span class="chip" onclick="toggleChip(this)">Ängstlich</span>
+        <span class="chip" onclick="toggleChip(this)">Motiviert</span>
+        <span class="chip" onclick="toggleChip(this)">Gereizt</span>
+        <span class="chip" onclick="toggleChip(this)">Traurig</span>
+        <span class="chip" onclick="toggleChip(this)">Freudig</span>
+        <span class="chip" onclick="toggleChip(this)">Überfordert</span>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Symptome & Schmerzen</div>
+    <div class="chips" id="symptom-chips">
+      <span class="chip" onclick="toggleChip(this)">Kopfschmerzen</span>
+      <span class="chip" onclick="toggleChip(this)">Bauchschmerzen</span>
+      <span class="chip" onclick="toggleChip(this)">Blähungen</span>
+      <span class="chip" onclick="toggleChip(this)">Übelkeit</span>
+      <span class="chip" onclick="toggleChip(this)">Rückenschmerzen</span>
+      <span class="chip" onclick="toggleChip(this)">Gelenkschmerzen</span>
+      <span class="chip" onclick="toggleChip(this)">Hautprobleme</span>
+      <span class="chip" onclick="toggleChip(this)">Konzentrationsprobleme</span>
+      <span class="chip" onclick="toggleChip(this)">Schwindel</span>
+      <span class="chip" onclick="toggleChip(this)">Herzrasen</span>
+      <span class="chip" onclick="toggleChip(this)">Sodbrennen</span>
+      <span class="chip" onclick="toggleChip(this)">Erschöpfung</span>
+    </div>
+    <div class="scale-row" style="margin-top:1rem">
+      <span class="scale-label">Schmerzintensität</span>
+      <input type="range" min="0" max="10" value="0" id="schmerz" oninput="document.getElementById('schm-val').textContent=this.value">
+      <span class="scale-val" id="schm-val">0</span>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Stuhlgang & Verdauung</div>
+    <div style="font-size:13px;color:#888780;margin-bottom:8px">Konsistenz (Bristol-Skala)</div>
+    <div class="stool-grid" id="stool-grid">
+      <div class="stool-btn" onclick="selectStool(this)">Typ 1<br>Hart, klumpig</div>
+      <div class="stool-btn" onclick="selectStool(this)">Typ 2<br>Klumpig</div>
+      <div class="stool-btn" onclick="selectStool(this)">Typ 3<br>Rissig</div>
+      <div class="stool-btn" onclick="selectStool(this)">Typ 4<br>Glatt, normal</div>
+      <div class="stool-btn" onclick="selectStool(this)">Typ 5<br>Weich, getrennt</div>
+      <div class="stool-btn" onclick="selectStool(this)">Typ 6<br>Breiig</div>
+      <div class="stool-btn" onclick="selectStool(this)">Typ 7<br>Wässrig</div>
+      <div class="stool-btn" onclick="selectStool(this)">Kein Stuhlgang</div>
+    </div>
+    <div style="margin-top:12px">
+      <div style="font-size:13px;color:#888780;margin-bottom:6px">Verdauungsbeschwerden</div>
+      <div class="chips">
+        <span class="chip" onclick="toggleChip(this)">Verstopfung</span>
+        <span class="chip" onclick="toggleChip(this)">Durchfall</span>
+        <span class="chip" onclick="toggleChip(this)">Blähungen</span>
+        <span class="chip" onclick="toggleChip(this)">Völlegefühl</span>
+        <span class="chip" onclick="toggleChip(this)">Krämpfe</span>
+        <span class="chip" onclick="toggleChip(this)">Keine Beschwerden</span>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Supplements & Medikamente</div>
+    <textarea id="supplements" placeholder="Welche Supplements oder Medikamente hast du heute genommen?"></textarea>
+  </div>
+  <div class="section">
+    <div class="section-title">Notizen</div>
+    <textarea id="notizen" style="min-height:80px" placeholder="Weitere Beobachtungen, Besonderheiten des Tages..."></textarea>
+  </div>
+  <button class="submit-btn" onclick="submitForm()">Protokoll speichern</button>
+  <div class="success" id="success-msg">Protokoll gespeichert!</div>
+</div>
+<script>
+document.getElementById('datum').value=new Date().toISOString().split('T')[0];
+function toggleChip(el){el.classList.toggle('active')}
+function selectStool(el){document.querySelectorAll('#stool-grid .stool-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+function submitForm(){
+  const data={datum:document.getElementById('datum').value,mahlzeiten:{fruehstueck:document.getElementById('fruehstueck').value,mittagessen:document.getElementById('mittagessen').value,abendessen:document.getElementById('abendessen').value,snacks:document.getElementById('snacks').value},energie:document.getElementById('energie').value,schlafqualitaet:document.getElementById('schlaf').value,schlafdauer:document.getElementById('schlafdauer').value,stimmung:document.getElementById('stimmung').value,symptome:[...document.querySelectorAll('#symptom-chips .chip.active')].map(c=>c.textContent),schmerz:document.getElementById('schmerz').value,stuhl:document.querySelector('#stool-grid .stool-btn.active')?.textContent||'',supplements:document.getElementById('supplements').value,notizen:document.getElementById('notizen').value};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='protokoll-'+data.datum+'.json';a.click();
+  document.getElementById('success-msg').style.display='block';
+}
+</script>
+</body>
+</html>
