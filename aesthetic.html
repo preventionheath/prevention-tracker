@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prevention.health – Aesthetic Aufklärung</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a18;min-height:100vh;padding:1.5rem 1rem}
+.wrap{max-width:640px;margin:0 auto}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{font-size:20px;font-weight:500;letter-spacing:0.08em}
+.header p{font-size:13px;color:#888780;margin-top:4px}
+.section{background:white;border:1px solid #e8e7e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.treatment-title{font-size:15px;font-weight:500;color:#085041;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #e8e7e2}
+.text{font-size:14px;line-height:1.7;color:#1a1a18;margin-bottom:10px}
+.risk-list{font-size:14px;line-height:1.8;color:#1a1a18;padding-left:16px}
+.risk-list li{margin-bottom:4px}
+.field{margin-bottom:12px}
+.field label{font-size:13px;color:#5F5E5A;display:block;margin-bottom:4px}
+input[type=text],input[type=date]{width:100%;font-size:14px;padding:8px 12px;border:1px solid #e8e7e2;border-radius:8px;background:#fafaf8;color:#1a1a18;outline:none}
+input:focus{border-color:#1D9E75;background:white}
+.sig-label{font-size:13px;color:#5F5E5A;margin-bottom:6px}
+canvas{border:1px solid #e8e7e2;border-radius:8px;background:white;touch-action:none;cursor:crosshair;display:block;width:100%}
+.sig-clear{font-size:12px;color:#888780;padding:4px 10px;border:1px solid #d3d1c7;border-radius:6px;background:white;cursor:pointer;margin-top:6px}
+.checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.checkbox-row input[type=checkbox]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:#1D9E75}
+.checkbox-row label{font-size:13px;color:#1a1a18;line-height:1.5}
+.submit-btn{width:100%;padding:14px;font-size:15px;font-weight:500;background:#1D9E75;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:0.5rem}
+.submit-btn:hover{background:#0F6E56}
+.success{display:none;text-align:center;padding:1.5rem;color:#085041;font-size:15px;font-weight:500;background:#E1F5EE;border-radius:12px;margin-top:1rem}
+.error{display:none;text-align:center;padding:1rem;color:#993C1D;font-size:14px;background:#FAECE7;border-radius:12px;margin-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>prevention.health</h1>
+    <p>Aufklärung Aesthetic Medicine</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Behandlerin</div>
+    <p class="text">Sabine Nania · Heilpraktikerin<br>prevention.health · Birkenwaldstr. 106 · 70191 Stuttgart<br>praxis@sabinenania.de · +49 (0)178 491 0003</p>
+  </div>
+
+  <div class="section">
+    <div class="treatment-title">Medical Needling</div>
+    <p class="text">Medical Needling ist ein minimalinvasives Verfahren zur Hautverjüngung und Narbenbehandlung. Durch gezielte Mikropunktionen mit einer sterilen Nadelrolle oder einem Pen-System wird die natürliche Kollagensynthese der Haut angeregt. Das Verfahren verbessert Hauttextur, Poren, Narben und Pigmentierung.</p>
+    <p class="text"><strong>Mögliche Nebenwirkungen & Risiken:</strong></p>
+    <ul class="risk-list">
+      <li>Rötung, Schwellung und Wärme der Haut für 24–72 Stunden nach der Behandlung</li>
+      <li>Leichte Einblutungen oder Petechien möglich</li>
+      <li>Vorübergehende Empfindlichkeit der Haut</li>
+      <li>Selten: Entzündung, Infektion bei bestehenden Hauterkrankungen</li>
+      <li>Selten: Hyperpigmentierung bei starker Sonnenexposition nach der Behandlung</li>
+    </ul>
+    <p class="text" style="margin-top:10px"><strong>Gegenanzeigen:</strong> Aktive Akne, Herpes-Infektionen im Behandlungsbereich, Blutungsneigung, Gerinnungsstörungen, Schwangerschaft, Keloide oder Narbenneigung, aktive Hauterkrankungen im Behandlungsbereich.</p>
+    <p class="text"><strong>Nachsorge:</strong> Kein Make-up für 24 Stunden. Sonnenschutz (mind. LSF 50) für 2 Wochen. Keine Wärmebehandlungen (Sauna, Sport) für 48 Stunden.</p>
+  </div>
+
+  <div class="section">
+    <div class="treatment-title">PRP — Platelet Rich Plasma</div>
+    <p class="text">PRP (plättchenreiches Plasma) ist ein Verfahren, bei dem aus deinem eigenen Blut gewonnenes Plasma mit konzentrierten Wachstumsfaktoren in die Haut eingebracht wird. Dies stimuliert die Kollagenproduktion, verbessert die Hautqualität und fördert die Geweberegeneration. Einsatzgebiete: Gesichtsverjüngung, Haarausfall, Dekolleté, Hände.</p>
+    <p class="text"><strong>Mögliche Nebenwirkungen & Risiken:</strong></p>
+    <ul class="risk-list">
+      <li>Rötung, Schwellung, Hämatome an Einstich- und Behandlungsstellen</li>
+      <li>Vorübergehender Schmerz bei der Injektion</li>
+      <li>Selten: Schwindelgefühl nach der Blutentnahme</li>
+      <li>Sehr selten: Infektion (da Eigenblut verwendet wird, sehr geringes Risiko)</li>
+      <li>Ergebnis abhängig von individuellen Heilungsfaktoren</li>
+    </ul>
+    <p class="text" style="margin-top:10px"><strong>Gegenanzeigen:</strong> Blutungsneigung, Thrombozytopenie, aktive Infektionen, Autoimmunerkrankungen in der Aktivphase, Blutkrebs, blutverdünnende Medikamente, Schwangerschaft.</p>
+    <p class="text"><strong>Nachsorge:</strong> Kein Make-up für 24 Stunden. Sonnenschutz für 2 Wochen. Kein Alkohol 24 Stunden vor und nach der Behandlung. Keine NSAR (Ibuprofen, Aspirin) 5 Tage vor der Behandlung.</p>
+  </div>
+
+  <div class="section">
+    <div class="treatment-title">Polynucleotide (PDRN)</div>
+    <p class="text">Polynucleotide sind biologisch gewonnene Moleküle (aus gereinigter Lachssamen-DNA), die als Gewebebooster tief in die Haut injiziert werden. Sie stimulieren Fibroblasten, fördern die Kollagen- und Elastinproduktion und verbessern die Hautfeuchtigkeit, Elastizität und Textur nachhaltig. Einsatzgebiete: Gesicht, Hals, Dekolleté.</p>
+    <p class="text"><strong>Mögliche Nebenwirkungen & Risiken:</strong></p>
+    <ul class="risk-list">
+      <li>Rötung, Schwellung, kleine Quaddeln an den Injektionsstellen (klingen innerhalb von 24–48h ab)</li>
+      <li>Leichte Hämatome möglich</li>
+      <li>Vorübergehender Brennschmerz bei der Injektion</li>
+      <li>Selten: allergische Reaktion (Fischprotein-Allergie beachten)</li>
+    </ul>
+    <p class="text" style="margin-top:10px"><strong>Gegenanzeigen:</strong> Fisch- oder Meeresfrüchte-Allergie (Lachsprotein), Schwangerschaft und Stillzeit, aktive Hautinfektionen im Behandlungsbereich, Autoimmunerkrankungen in der Aktivphase.</p>
+    <p class="text"><strong>Nachsorge:</strong> Kein Make-up für 12–24 Stunden. Sonnenschutz für 2 Wochen. Keine intensiven Sportaktivitäten für 24 Stunden.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Allgemeine Hinweise & Erwartungsmanagement</div>
+    <p class="text">Aesthetic-Behandlungen sind keine medizinisch notwendigen Eingriffe. Die Ergebnisse sind individuell verschieden und können nicht garantiert werden. Für optimale Ergebnisse sind in der Regel mehrere Behandlungen erforderlich.</p>
+    <p class="text">Fotos können vor und nach der Behandlung zu Dokumentationszwecken erstellt werden. Diese werden streng vertraulich behandelt und nicht ohne deine ausdrückliche Einwilligung weitergegeben.</p>
+    <p class="text">Ich wurde ausführlich über die geplante Behandlung, Wirkweise, Risiken, Alternativen und die realistische Erwartungshaltung aufgeklärt. Ich hatte ausreichend Gelegenheit, Fragen zu stellen.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Einwilligung & Unterschrift</div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check1">
+      <label for="check1">Ich willige nach umfassender Aufklärung freiwillig in die beschriebene(n) Aesthetic-Behandlung(en) ein.</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check2">
+      <label for="check2">Ich habe keine der genannten Gegenanzeigen oder habe diese meiner Behandlerin mitgeteilt.</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check3">
+      <label for="check3">Ich bin damit einverstanden, dass Vorher-Nachher-Fotos zu Dokumentationszwecken erstellt werden (vertraulich, keine Weitergabe ohne Einwilligung).</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check4">
+      <label for="check4">Ich bin darüber informiert, dass ich meine Einwilligung jederzeit widerrufen kann.</label>
+    </div>
+    <div class="field" style="margin-top:12px"><label>Vollständiger Name</label><input type="text" id="name" placeholder="Vor- und Nachname"></div>
+    <div class="field"><label>Datum</label><input type="date" id="datum"></div>
+    <div class="field">
+      <div class="sig-label">Unterschrift (mit Finger oder Maus)</div>
+      <canvas id="sig-canvas" height="150"></canvas>
+      <button class="sig-clear" onclick="clearSig()">Löschen</button>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Aufklärung bestätigen & absenden</button>
+  <div class="success" id="success-msg">Vielen Dank! Deine Einwilligung wurde erfolgreich übermittelt.</div>
+  <div class="error" id="error-msg">Bitte fülle alle Felder aus, akzeptiere alle Punkte und unterschreibe.</div>
+</div>
+
+<script>
+const canvas=document.getElementById('sig-canvas');
+const ctx=canvas.getContext('2d');
+canvas.width=canvas.offsetWidth*window.devicePixelRatio;
+canvas.height=150*window.devicePixelRatio;
+ctx.scale(window.devicePixelRatio,window.devicePixelRatio);
+ctx.strokeStyle='#1a1a18';ctx.lineWidth=2;ctx.lineCap='round';
+let drawing=false,hasSig=false;
+function getPos(e){const r=canvas.getBoundingClientRect();if(e.touches){return{x:(e.touches[0].clientX-r.left),y:(e.touches[0].clientY-r.top)};}return{x:e.clientX-r.left,y:e.clientY-r.top};}
+canvas.addEventListener('mousedown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);});
+canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();hasSig=true;});
+canvas.addEventListener('mouseup',()=>drawing=false);
+canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();hasSig=true;},{passive:false});
+canvas.addEventListener('touchend',()=>drawing=false);
+function clearSig(){ctx.clearRect(0,0,canvas.width,canvas.height);hasSig=false;}
+document.getElementById('datum').value=new Date().toISOString().split('T')[0];
+
+async function submitForm(){
+  const name=document.getElementById('name').value;
+  const datum=document.getElementById('datum').value;
+  const c1=document.getElementById('check1').checked;
+  const c2=document.getElementById('check2').checked;
+  const c3=document.getElementById('check3').checked;
+  const c4=document.getElementById('check4').checked;
+  if(!name||!c1||!c2||!c4||!hasSig){document.getElementById('error-msg').style.display='block';return;}
+  document.getElementById('error-msg').style.display='none';
+  const sig=canvas.toDataURL('image/png');
+  const message=`AUFKLÄRUNG AESTHETIC MEDICINE\n\nName: ${name}\nDatum: ${datum}\n\nEinwilligungen:\n✓ Einwilligung zur Aesthetic-Behandlung erteilt\n✓ Keine Gegenanzeigen / mitgeteilt\n${c3?'✓':'✗'} Einwilligung Fotodokumentation\n✓ Widerrufsrecht zur Kenntnis genommen\n\nUnterschrift übermittelt.`;
+  const formData=new FormData();
+  formData.append('name',name);
+  formData.append('datum',datum);
+  formData.append('message',message);
+  formData.append('unterschrift',sig);
+  formData.append('_subject','Aesthetic Aufklärung – '+name);
+  try{
+    const res=await fetch('https://formspree.io/f/mgonlzap',{method:'POST',body:formData,headers:{Accept:'application/json'}});
+    if(res.ok){document.getElementById('success-msg').style.display='block';window.scrollTo(0,0);}
+    else{document.getElementById('error-msg').textContent='Fehler beim Senden.';document.getElementById('error-msg').style.display='block';}
+  }catch(e){document.getElementById('error-msg').style.display='block';}
+}
+</script>
+</body>
+</html>

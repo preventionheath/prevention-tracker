@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prevention.health – Behandlungsaufklärung</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a18;min-height:100vh;padding:1.5rem 1rem}
+.wrap{max-width:640px;margin:0 auto}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{font-size:20px;font-weight:500;letter-spacing:0.08em}
+.header p{font-size:13px;color:#888780;margin-top:4px}
+.section{background:white;border:1px solid #e8e7e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.treatment-title{font-size:15px;font-weight:500;color:#085041;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #e8e7e2}
+.text{font-size:14px;line-height:1.7;color:#1a1a18;margin-bottom:10px}
+.risk-list{font-size:14px;line-height:1.8;color:#1a1a18;padding-left:16px}
+.risk-list li{margin-bottom:4px}
+.field{margin-bottom:12px}
+.field label{font-size:13px;color:#5F5E5A;display:block;margin-bottom:4px}
+input[type=text],input[type=date]{width:100%;font-size:14px;padding:8px 12px;border:1px solid #e8e7e2;border-radius:8px;background:#fafaf8;color:#1a1a18;outline:none}
+input:focus{border-color:#1D9E75;background:white}
+.sig-label{font-size:13px;color:#5F5E5A;margin-bottom:6px}
+canvas{border:1px solid #e8e7e2;border-radius:8px;background:white;touch-action:none;cursor:crosshair;display:block;width:100%}
+.sig-clear{font-size:12px;color:#888780;padding:4px 10px;border:1px solid #d3d1c7;border-radius:6px;background:white;cursor:pointer;margin-top:6px}
+.checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.checkbox-row input[type=checkbox]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:#1D9E75}
+.checkbox-row label{font-size:13px;color:#1a1a18;line-height:1.5}
+.submit-btn{width:100%;padding:14px;font-size:15px;font-weight:500;background:#1D9E75;color:white;border:none;border-radius:12px;cursor:pointer;margin-top:0.5rem}
+.submit-btn:hover{background:#0F6E56}
+.success{display:none;text-align:center;padding:1.5rem;color:#085041;font-size:15px;font-weight:500;background:#E1F5EE;border-radius:12px;margin-top:1rem}
+.error{display:none;text-align:center;padding:1rem;color:#993C1D;font-size:14px;background:#FAECE7;border-radius:12px;margin-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>prevention.health</h1>
+    <p>Aufklärung & Einwilligung zur Behandlung</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Behandlerin</div>
+    <p class="text">Sabine Nania · Heilpraktikerin<br>prevention.health · Birkenwaldstr. 106 · 70191 Stuttgart<br>praxis@sabinenania.de · +49 (0)178 491 0003</p>
+  </div>
+
+  <div class="section">
+    <div class="treatment-title">Akupunktur</div>
+    <p class="text">Die Akupunktur ist eine Methode der Traditionellen Chinesischen Medizin (TCM). Durch das gezielte Setzen steriler Einmalnadeln an definierten Punkten des Körpers werden Energieflüsse (Qi) reguliert und Selbstheilungskräfte aktiviert. Die Nadeln verbleiben je nach Behandlung 20–40 Minuten.</p>
+    <p class="text"><strong>Mögliche Nebenwirkungen & Risiken:</strong></p>
+    <ul class="risk-list">
+      <li>Lokale Rötung, Schwellung oder Hämatom an der Einstichstelle</li>
+      <li>Kurzfristiger Schmerz beim Nadeln</li>
+      <li>Selten: Schwindel, Kreislaufschwäche (insbesondere bei leerem Magen)</li>
+      <li>Sehr selten: Infektionen bei bekannten Immundefekten</li>
+      <li>Erstverschlimmerung der Beschwerden möglich (heilsame Reaktion)</li>
+    </ul>
+    <p class="text" style="margin-top:10px"><strong>Gegenanzeigen:</strong> Blutungsneigung, Marcumar/Antikoagulantien, Schwangerschaft (bestimmte Punkte), akute Infekte mit Fieber, Herzschrittmacher (bei Elektroakupunktur).</p>
+    <p class="text">Es wurden sterile Einmalnadeln verwendet. Eine Wiederverwendung findet nicht statt.</p>
+  </div>
+
+  <div class="section">
+    <div class="treatment-title">Blutabnahme</div>
+    <p class="text">Die venöse Blutentnahme dient der Labordiagnostik und/oder der Aufbereitung von Eigenblut (z.B. für PRP). Sie erfolgt unter hygienischen Bedingungen mit sterilen Einmalmaterialien.</p>
+    <p class="text"><strong>Mögliche Nebenwirkungen & Risiken:</strong></p>
+    <ul class="risk-list">
+      <li>Lokaler Schmerz, Rötung oder Hämatom an der Einstichstelle</li>
+      <li>Selten: Schwindel, Kreislaufschwäche, Ohnmacht</li>
+      <li>Sehr selten: Nervenirritation oder Infektion</li>
+    </ul>
+    <p class="text" style="margin-top:10px">Bitte informiere mich vorab, falls du blutverdünnende Medikamente nimmst, eine Gerinnungsstörung hast oder in der Vergangenheit Probleme bei Blutabnahmen aufgetreten sind.</p>
+  </div>
+
+  <div class="section">
+    <div class="treatment-title">Infusionstherapie</div>
+    <p class="text">Die intravenöse Infusionstherapie ermöglicht eine hochdosierte und direkt bioverfügbare Zufuhr von Mikronährstoffen, Vitaminen und Wirkstoffen. Je nach Therapieplan kommen zum Einsatz: Vitamin C hochdosiert, Glutathion, Myers Cocktail, NAD+, Eigenblut sowie individuelle Mikronährstoff-Infusionen.</p>
+    <p class="text"><strong>Mögliche Nebenwirkungen & Risiken:</strong></p>
+    <ul class="risk-list">
+      <li>Lokale Reaktion an der Einstichstelle (Rötung, Schwellung, Hämatom)</li>
+      <li>Wärmegefühl, Kribbeln oder Geschmacksveränderung während der Infusion (besonders bei Vitamin C und Magnesium)</li>
+      <li>Selten: Übelkeit, Schwindel, Kreislaufreaktionen</li>
+      <li>Selten: allergische Reaktionen auf Infusionsbestandteile</li>
+      <li>Sehr selten: Venenentzündung (Phlebitis)</li>
+    </ul>
+    <p class="text" style="margin-top:10px"><strong>Wichtige Hinweise:</strong> Bitte erscheine zur Infusion nicht nüchtern. Informiere mich über alle bekannten Allergien, Nierenerkrankungen, Glucose-6-Phosphat-Dehydrogenase-Mangel (relevant bei Vitamin C) sowie alle eingenommenen Medikamente.</p>
+    <p class="text">Die Infusion erfolgt unter meiner Aufsicht. Nach der Behandlung solltest du kurz ruhen und nicht sofort Auto fahren.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Allgemeine Hinweise</div>
+    <p class="text">Die heilpraktische Behandlung ersetzt keine ärztliche Behandlung und ist keine Heilung im medizinischen Sinne. Bei akuten oder lebensbedrohlichen Erkrankungen ist stets ein Arzt aufzusuchen.</p>
+    <p class="text">Ich wurde über die geplante Behandlung, deren Wirkweise, mögliche Risiken und Nebenwirkungen sowie Alternativen aufgeklärt. Ich hatte ausreichend Zeit, Fragen zu stellen, und alle meine Fragen wurden beantwortet.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Einwilligung & Unterschrift</div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check1">
+      <label for="check1">Ich willige nach ausführlicher Aufklärung freiwillig in die beschriebenen Behandlungsmaßnahmen ein.</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check2">
+      <label for="check2">Ich habe die Aufklärung verstanden und hatte die Möglichkeit, Fragen zu stellen.</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="check3">
+      <label for="check3">Ich bin darüber informiert, dass ich meine Einwilligung jederzeit ohne Angabe von Gründen widerrufen kann.</label>
+    </div>
+    <div class="field" style="margin-top:12px"><label>Vollständiger Name</label><input type="text" id="name" placeholder="Vor- und Nachname"></div>
+    <div class="field"><label>Datum</label><input type="date" id="datum"></div>
+    <div class="field">
+      <div class="sig-label">Unterschrift (mit Finger oder Maus)</div>
+      <canvas id="sig-canvas" height="150"></canvas>
+      <button class="sig-clear" onclick="clearSig()">Löschen</button>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Aufklärung bestätigen & absenden</button>
+  <div class="success" id="success-msg">Vielen Dank! Deine Einwilligung wurde erfolgreich übermittelt.</div>
+  <div class="error" id="error-msg">Bitte fülle alle Felder aus, akzeptiere alle Punkte und unterschreibe.</div>
+</div>
+
+<script>
+const canvas=document.getElementById('sig-canvas');
+const ctx=canvas.getContext('2d');
+canvas.width=canvas.offsetWidth*window.devicePixelRatio;
+canvas.height=150*window.devicePixelRatio;
+ctx.scale(window.devicePixelRatio,window.devicePixelRatio);
+ctx.strokeStyle='#1a1a18';ctx.lineWidth=2;ctx.lineCap='round';
+let drawing=false,hasSig=false;
+function getPos(e){const r=canvas.getBoundingClientRect();if(e.touches){return{x:(e.touches[0].clientX-r.left),y:(e.touches[0].clientY-r.top)};}return{x:e.clientX-r.left,y:e.clientY-r.top};}
+canvas.addEventListener('mousedown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);});
+canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();hasSig=true;});
+canvas.addEventListener('mouseup',()=>drawing=false);
+canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();hasSig=true;},{passive:false});
+canvas.addEventListener('touchend',()=>drawing=false);
+function clearSig(){ctx.clearRect(0,0,canvas.width,canvas.height);hasSig=false;}
+document.getElementById('datum').value=new Date().toISOString().split('T')[0];
+
+async function submitForm(){
+  const name=document.getElementById('name').value;
+  const datum=document.getElementById('datum').value;
+  const c1=document.getElementById('check1').checked;
+  const c2=document.getElementById('check2').checked;
+  const c3=document.getElementById('check3').checked;
+  if(!name||!c1||!c2||!c3||!hasSig){document.getElementById('error-msg').style.display='block';return;}
+  document.getElementById('error-msg').style.display='none';
+  const sig=canvas.toDataURL('image/png');
+  const message=`BEHANDLUNGSAUFKLÄRUNG – Akupunktur / Blutabnahme / Infusion\n\nName: ${name}\nDatum: ${datum}\n\nEinwilligungen:\n✓ Einwilligung zur Behandlung erteilt\n✓ Aufklärung verstanden\n✓ Widerrufsrecht zur Kenntnis genommen\n\nUnterschrift übermittelt.`;
+  const formData=new FormData();
+  formData.append('name',name);
+  formData.append('datum',datum);
+  formData.append('message',message);
+  formData.append('unterschrift',sig);
+  formData.append('_subject','Behandlungsaufklärung – '+name);
+  try{
+    const res=await fetch('https://formspree.io/f/mgonlzap',{method:'POST',body:formData,headers:{Accept:'application/json'}});
+    if(res.ok){document.getElementById('success-msg').style.display='block';window.scrollTo(0,0);}
+    else{document.getElementById('error-msg').textContent='Fehler beim Senden.';document.getElementById('error-msg').style.display='block';}
+  }catch(e){document.getElementById('error-msg').style.display='block';}
+}
+</script>
+</body>
+</html>
